@@ -1,0 +1,157 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Arcxival</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href={% static "css/styles.css" %}>
+    <link rel="stylesheet" href={% static "css/Footer-Basic.css" %}>
+
+
+    {#    <title>Arcxival</title>#}
+
+    <title> Archive Courses </title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "images/favicon.ico" %}">
+
+    <!-- jQuery -->
+    <script src="{% static "js/jquery-2.0.0.min.js" %}" type="text/javascript"></script>
+
+    <!-- Bootstrap4 files-->
+    <script src="{% static "js/bootstrap.bundle.min.js" %}" type="text/javascript"></script>
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" type="text/css"/>
+
+    <!-- Font awesome 5 -->
+    <link href="{% static "fonts/fontawesome/css/fontawesome-all.min.css" %}" type="text/css" rel="stylesheet">
+
+    <!-- plugin: fancybox  -->
+    <script src="{% static "plugins/fancybox/fancybox.min.js" %}" type="text/javascript"></script>
+    <link href="{% static "plugins/fancybox/fancybox.min.css" %}" type="text/css" rel="stylesheet">
+
+    <!-- plugin: owl carousel  -->
+    <link href="{% static "plugins/owlcarousel/assets/owl.carousel.min.css" %}" rel="stylesheet">
+    <link href="{% static "plugins/owlcarousel/assets/owl.theme.default.css" %}" rel="stylesheet">
+    <script src="{% static "plugins/owlcarousel/owl.carousel.min.js" %}"></script>
+
+    <!-- custom style -->
+    <link href="{% static "css/ui.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "css/responsive.css" %}" rel="stylesheet" media="only screen and (max-width: 1200px)"/>
+
+    <!-- custom javascript -->
+    <script src="{% static "js/script.js" %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myModal').modal('show');
+        });
+    </script>
+
+</head>
+<body style="background-color: #F8F8F8;">
+
+<nav class="navbar navbar-light navbar-expand-md fixed-top" style="background-color:#223272;height:70px;">
+    <div class="container">
+        <a class="navbar-brand"
+           {% if type == "student" %}
+           href="{% url 'shome' %}"
+           {% elif type == "teach" %}
+           href="{% url 'thome' %}"
+           {% endif %}
+           style="color:#eeeeee; font-family: azonix; padding-bottom: 15px; font-size: 28px">
+            <span class="brand-text">ARC</span><span id="X">X</span><span class="brand-text">IVAL</span></a>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation" style="margin-right: 730px"><a class="anim nav-link active"
+                                                                                        href="{% url 'archive_courses' %}"
+                                                                                        style="color:#eeeeee;">ARCHIVE</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item" role="presentation"><a class="anim nav-link active" href="{% url 'logout' %}"
+                                                                style="color:#eeeeee;">LOGOUT</a></li>
+                {% else %}
+                    <li class="nav-item" role="presentation"><a class="anim nav-link active" href="{% url 'home' %}"
+                                                                style="color:#eeeeee;">LOGIN</a></li>
+                {% endif %}
+                {#                <li class="nav-item" role="presentation"><a class="nav-link"#}
+                {#                                                            style="padding-top:1px;padding-left:39px;color:#eeeeee;"#}
+                {#                                                            href="#"><i class="icon ion-android-settings"></i></a></li>#}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="section-content bg padding-y-sm" style="padding-top: 100px;">
+
+    <div class="container">
+        <h3 class="text-left"
+            style="padding-left:6px;padding-top:13px;margin-left:-5px;padding-bottom:1px;margin-bottom:9px;font-size:25px;font-family: 'Open Sans', sans-serif;">
+            COURSES </h3>
+        <hr style="background-color: #0d0d0d">
+        <br>
+        <br>
+
+        <div class="row-sm">
+            {% for course in courses.all %}
+                <div class="col-md-3 col-sm-6">
+                    <a href="{% url 'archive_Sessions' course.pk %}">
+                        <figure class="card card-product">
+                            <article class="box">
+                                <div class="icontext  mb-4">
+                                    <div class="text-wrap">
+
+                                        <div class="b" style="font-size: 30px;">{{ course.course_code }}</div>
+                                        <small style="font-size: 16px;margin-top: 15px;margin-bottom: 15px;">{{ course.course_title }}
+                                        </small>
+
+                                    </div>
+                                </div> <!-- icontexpxt.// -->
+                            </article> <!-- box.// -->
+                        </figure> <!-- card // -->
+                    </a>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+</section>
+{% if messages %}
+    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" id="myModal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                {{ message }}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<footer style="height: 200px;background-color: #F8F8F8;"></footer>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+</body>
+</html>
